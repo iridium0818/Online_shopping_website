@@ -1,0 +1,58 @@
+#生产环境端口
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    #druid基本属性
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/shop_user?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: 'shop_user'
+    password: 'Cyp01668!'
+    #druid相关配置
+    druid:
+      filters: stat,wall
+      initial-size: 5
+      min-idle: 1
+      max-active: 50
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  aop:
+    proxy-target-class: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 20MB
+
+#MyBatis
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.xq.tmall.entity;
+  global-config:
+    id-type: 0
+    field-strategy: 2
+    db-column-underline: false
+    refresh-mapper: false # 生产环境关闭mapper刷新
+    meta-object-handler: com.xq.tmall.config.mybatis.MyMetaObjectHandler
+  configuration:
+    map-underscore-to-camel-case: false
+    cache-enabled: true
+    call-setters-on-nulls: true
+
+#logging
+logging:
+  level:
+    com.xq.tmall: INFO # 生产环境建议使用INFO级别
+
