@@ -49,16 +49,16 @@
     </div>
     <div class="pwdLogin">
         <span class="loginTitle">密码登录</span>
-        <form method="post" class="loginForm">
+        <form method="post" class="loginForm
             <div class="loginInputDiv">
                 <label for="name" class="loginLabel"><img
-                        src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/2018-04-27_235518.png"
+                        src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/2025-12-15_112310.png"
                         width="38px" height="39px" title="会员名"/></label>
                 <input type="text" name="name" id="name" class="loginInput" placeholder="会员名/邮箱/手机号">
             </div>
             <div class="loginInputDiv">
                 <label for="password" class="loginLabel"><img
-                        src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/2018-04-27_235533.png"
+                        src="${pageContext.request.contextPath}/res/images/fore/WebsiteImage/2025-12-15_113549.png"
                         width="38px" height="39px" title="登录密码"/></label>
                 <input type="password" name="password" id="password" class="loginInput">
             </div>
@@ -204,7 +204,7 @@
                                         });
                                     } else {
                                         if (data.url != null) {
-                                            location.href = "/tmall" + data.url;
+                                            location.href = "${pageContext.request.contextPath}" + data.url;
                                         } else {
                                             alert("加入购物车失败，请稍后再试！");
                                         }
@@ -246,7 +246,7 @@
                 <c:forEach items="${requestScope.loveProductList}" var="product">
                     <li class="context_ul_main">
                         <div class="context_ul_img">
-                            <a href="/tmall/product/${product.product_id}">
+                            <a href="${pageContext.request.contextPath}/product/${product.product_id}">
                                 <img src="${pageContext.request.contextPath}/res/images/item/productSinglePicture/${product.singleProductImageList[0].productImage_src}">
                             </a>
                             <p>¥${product.product_sale_price}0</p>

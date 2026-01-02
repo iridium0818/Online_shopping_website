@@ -7,7 +7,7 @@ $(function () {
     $('#select_order_address_province').change(function () {
         $.ajax({
             type: "GET",
-            url: "/tmall/address/" + $(this).val(),
+            url: "/address/" + $(this).val(),
             data: null,
             dataType: "json",
             success: function (data) {
@@ -45,7 +45,7 @@ $(function () {
     $("#select_order_address_city").change(function () {
         $.ajax({
             type: "GET",
-            url: "/tmall/address/" + $(this).val(),
+            url: "/address/" + $(this).val(),
             data: null,
             dataType: "json",
             success: function (data) {

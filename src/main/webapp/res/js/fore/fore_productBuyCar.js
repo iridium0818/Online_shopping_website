@@ -142,7 +142,7 @@ function create(obj) {
         orderItemMap[key] = $(this).find(".item_amount").children("input").val();
     });
     $.ajax({
-        url: "/tmall/orderItem",
+        url: "/orderItem",
         type: "PUT",
         data: {
             "orderItemMap": JSON.stringify(orderItemMap)
@@ -150,18 +150,18 @@ function create(obj) {
         traditional: true,
         success: function (data) {
             if (data.success) {
-                location.href = "/tmall/order/create/byCart?order_item_list=" + data.orderItemIDArray;
+                location.href = "/order/create/byCart?order_item_list=" + data.orderItemIDArray;
                 return true;
             } else {
                 alert("购物车商品结算异常，请稍候再试！");
-                location.href = "/tmall/cart";
+                location.href = "/cart";
             }
         },
         beforeSend: function () {
         },
         error: function () {
             alert("购物车商品结算异常，请稍候再试！");
-            location.href = "/tmall/cart";
+            location.href = "/cart";
         }
     });
 }

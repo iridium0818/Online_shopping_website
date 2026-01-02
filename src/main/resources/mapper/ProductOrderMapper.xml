@@ -4,27 +4,27 @@
         "mybatis-3-mapper.dtd">
 <mapper namespace="com.xq.tmall.dao.ProductOrderMapper">
     <resultMap id="productOrderMap" type="com.xq.tmall.entity.ProductOrder">
-        <id property="productOrder_id" column="productOrder_id"/>
-        <result property="productOrder_code" column="productOrder_code"/>
-        <result property="productOrder_detail_address" column="productOrder_detail_address"/>
-        <result property="productOrder_post" column="productOrder_post"/>
-        <result property="productOrder_receiver" column="productOrder_receiver"/>
-        <result property="productOrder_mobile" column="productOrder_mobile"/>
-        <result property="productOrder_pay_date" column="productOrder_pay_date"/>
-        <result property="productOrder_delivery_date" column="productOrder_delivery_date"/>
-        <result property="productOrder_confirm_date" column="productOrder_confirm_date"/>
-        <result property="productOrder_status" column="productOrder_status"/>
+        <id property="productOrder_id" column="productorder_id"/>
+        <result property="productOrder_code" column="productorder_code"/>
+        <result property="productOrder_detail_address" column="productorder_detail_address"/>
+        <result property="productOrder_post" column="productorder_post"/>
+        <result property="productOrder_receiver" column="productorder_receiver"/>
+        <result property="productOrder_mobile" column="productorder_mobile"/>
+        <result property="productOrder_pay_date" column="productorder_pay_date"/>
+        <result property="productOrder_delivery_date" column="productorder_delivery_date"/>
+        <result property="productOrder_confirm_date" column="productorder_confirm_date"/>
+        <result property="productOrder_status" column="productorder_status"/>
         <association property="productOrder_address" javaType="com.xq.tmall.entity.Address">
-            <id property="address_areaId" column="productOrder_address"/>
+            <id property="address_areaId" column="productorder_address"/>
         </association>
         <association property="productOrder_user" javaType="com.xq.tmall.entity.User">
-            <id property="user_id" column="productOrder_user_id"/>
+            <id property="user_id" column="productorder_user_id"/>
         </association>
     </resultMap>
 
     <insert id="insertOne" parameterType="com.xq.tmall.entity.ProductOrder">
-        INSERT productOrder
-        (productOrder_id,productOrder_code,productOrder_detail_address,productOrder_post,productOrder_receiver,productOrder_mobile,productOrder_pay_date,productOrder_delivery_date,productOrder_confirm_date,productOrder_status,productOrder_address,productOrder_user_id)
+        INSERT productorder
+        (productorder_id,productorder_code,productorder_detail_address,productorder_post,productorder_receiver,productorder_mobile,productorder_pay_date,productorder_delivery_date,productorder_confirm_date,productorder_status,productorder_address,productorder_user_id)
             VALUES (
             null,
             #{productOrder.productOrder_code},
@@ -40,38 +40,38 @@
         #{productOrder.productOrder_user.user_id})
     </insert>
     <update id="updateOne" parameterType="com.xq.tmall.entity.ProductOrder">
-        UPDATE productOrder
+        UPDATE productorder
         <set>
             <if test="productOrder.productOrder_address != null">
-                productOrder_address = #{productOrder.productOrder_address},
+                productorder_address = #{productOrder.productOrder_address.address_areaId},
             </if>
             <if test="productOrder.productOrder_detail_address != null">
-                productOrder_detail_address = #{productOrder.productOrder_detail_address},
+                productorder_detail_address = #{productOrder.productOrder_detail_address},
             </if>
             <if test="productOrder.productOrder_post != null">
-                productOrder_post = #{productOrder.productOrder_post},
+                productorder_post = #{productOrder.productOrder_post},
             </if>
             <if test="productOrder.productOrder_status != null">
-                productOrder_status = #{productOrder.productOrder_status},
+                productorder_status = #{productOrder.productOrder_status},
             </if>
             <if test="productOrder.productOrder_pay_date != null">
-                productOrder_pay_date = #{productOrder.productOrder_pay_date},
+                productorder_pay_date = #{productOrder.productOrder_pay_date},
             </if>
             <if test="productOrder.productOrder_delivery_date != null">
-                productOrder_delivery_date = #{productOrder.productOrder_delivery_date},
+                productorder_delivery_date = #{productOrder.productOrder_delivery_date},
             </if>
             <if test="productOrder.productOrder_confirm_date != null">
-                productOrder_confirm_date = #{productOrder.productOrder_confirm_date}
+                productorder_confirm_date = #{productOrder.productOrder_confirm_date}
             </if>
         </set>
         <where>
-            productOrder_id = #{productOrder.productOrder_id}
+            productorder_id = #{productOrder.productOrder_id}
         </where>
     </update>
     <delete id="deleteList" parameterType="java.util.ArrayList">
-        DELETE FROM productOrder
+        DELETE FROM productorder
         <where>
-            productOrder_id IN
+            productorder_id IN
             <foreach collection="productOrder_id_list" index="index" item="item" open="(" close=")" separator=",">
                 #{item}
             </foreach>
@@ -79,22 +79,22 @@
     </delete>
     <select id="select" resultMap="productOrderMap">
         SELECT
-        productOrder_id,productOrder_code,productOrder_detail_address,productOrder_post,productOrder_receiver,productOrder_mobile,productOrder_pay_date,productOrder_delivery_date,productOrder_confirm_date,productOrder_status,productOrder_address,productOrder_user_id
-        FROM productOrder
+        productorder_id,productorder_code,productorder_detail_address,productorder_post,productorder_receiver,productorder_mobile,productorder_pay_date,productorder_delivery_date,productorder_confirm_date,productorder_status,productorder_address,productorder_user_id
+        FROM productorder
         <where>
             <if test="productOrder != null">
-                <if test="productOrder.productOrder_code != null">productOrder_code LIKE
+                <if test="productOrder.productOrder_code != null">productorder_code LIKE
                     concat('%',#{productOrder.productOrder_code},'%')
                 </if>
-                <if test="productOrder.productOrder_post != null">and productOrder_post LIKE
+                <if test="productOrder.productOrder_post != null">and productorder_post LIKE
                     concat('%',#{productOrder.productOrder_post},'%')
                 </if>
-                <if test="productOrder.productOrder_user != null">and productOrder_user_id =
+                <if test="productOrder.productOrder_user != null">and productorder_user_id =
                     #{productOrder.productOrder_user.user_id}
                 </if>
             </if>
             <if test="productOrder_status_array != null">
-                and productOrder_status IN
+                and productorder_status IN
                 <foreach collection="productOrder_status_array" index="index" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
@@ -110,44 +110,41 @@
     </select>
     <select id="selectOne" resultMap="productOrderMap" parameterType="int">
         SELECT
-        productOrder_id,productOrder_code,productOrder_detail_address,productOrder_post,productOrder_receiver,productOrder_mobile,productOrder_pay_date,productOrder_delivery_date,productOrder_confirm_date,productOrder_status,productOrder_address,productOrder_user_id
-        FROM productOrder
+        productorder_id,productorder_code,productorder_detail_address,productorder_post,productorder_receiver,productorder_mobile,productorder_pay_date,productorder_delivery_date,productorder_confirm_date,productorder_status,productorder_address,productorder_user_id
+        FROM productorder
         <where>
-            productOrder_id = #{productOrder_id}
-        </where>
-    </select>
-    <select id="selectByCode" resultMap="productOrderMap" parameterType="string">
-        SELECT
-        productOrder_id,productOrder_code,productOrder_detail_address,productOrder_post,productOrder_receiver,productOrder_mobile,productOrder_pay_date,productOrder_delivery_date,productOrder_confirm_date,productOrder_status,productOrder_address,productOrder_user_id
-        FROM productOrder
-        <where>
-            productOrder_code = #{productOrder_code}
+            productorder_id = #{productOrder_id}
         </where>
     </select>
     <select id="selectTotal" resultType="int">
-        SELECT COUNT(productOrder_id) FROM productOrder
+        SELECT COUNT(productorder_id) FROM productorder
         <where>
             <if test="productOrder != null">
-                <if test="productOrder.productOrder_code">productOrder_code LIKE concat('%',#{productOrder.productOrder_code},'%')</if>
-                <if test="productOrder.productOrder_post">and productOrder_post LIKE concat('%',#{productOrder.productOrder_post},'%')</if>
-                <if test="productOrder.productOrder_user != null">and productOrder_user_id =
+                <if test="productOrder.productOrder_code != null">productorder_code LIKE
+                    concat('%',#{productOrder.productOrder_code},'%')
+                </if>
+                <if test="productOrder.productOrder_post != null">and productorder_post LIKE
+                    concat('%',#{productOrder.productOrder_post},'%')
+                </if>
+                <if test="productOrder.productOrder_user != null">and productorder_user_id =
                     #{productOrder.productOrder_user.user_id}
                 </if>
             </if>
-            <if test="productOrder_status_array != null">and productOrder_status IN
+            <if test="productOrder_status_array != null">
+                and productorder_status IN
                 <foreach collection="productOrder_status_array" index="index" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
         </where>
     </select>
-
     <select id="getTotalByDate" resultType="com.xq.tmall.entity.OrderGroup">
         SELECT
-        productOrder_pay_date,count(productOrder_id) as productOrder_count ,productOrder_status from productOrder
-        <where>
-            productOrder_pay_date BETWEEN #{beginDate} AND #{endDate}
-        </where>
-        GROUP BY DATE_FORMAT(productOrder_pay_date,'%Y-%m-%d'),productOrder_status
+        DATE(productorder_pay_date) as productOrder_pay_date,
+        count(productorder_id) as productOrder_count,
+        productorder_status
+        FROM productorder
+        WHERE productorder_pay_date BETWEEN #{beginDate} AND #{endDate}
+        GROUP BY DATE(productorder_pay_date),productorder_status
     </select>
 </mapper>

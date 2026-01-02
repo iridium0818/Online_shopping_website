@@ -4,24 +4,24 @@
         "mybatis-3-mapper.dtd">
 <mapper namespace="com.xq.tmall.dao.ProductOrderItemMapper">
     <resultMap id="productOrderItemMap" type="com.xq.tmall.entity.ProductOrderItem">
-        <id property="productOrderItem_id" column="productOrderItem_id"/>
-        <result property="productOrderItem_number" column="productOrderItem_number"/>
-        <result property="productOrderItem_price" column="productOrderItem_price"/>
-        <result property="productOrderItem_userMessage" column="productOrderItem_userMessage"/>
+        <id property="productOrderItem_id" column="productorderitem_id"/>
+        <result property="productOrderItem_number" column="productorderitem_number"/>
+        <result property="productOrderItem_price" column="productorderitem_price"/>
+        <result property="productOrderItem_userMessage" column="productorderitem_usermessage"/>
         <association property="productOrderItem_product" javaType="com.xq.tmall.entity.Product">
-            <id property="product_id" column="productOrderItem_product_id"/>
+            <id property="product_id" column="productorderitem_product_id"/>
         </association>
         <association property="productOrderItem_order" javaType="com.xq.tmall.entity.ProductOrder">
-            <id property="productOrder_id" column="productOrderItem_order_id"/>
+            <id property="productOrder_id" column="productorderitem_order_id"/>
         </association>
         <association property="productOrderItem_user" javaType="com.xq.tmall.entity.User">
-            <id property="user_id" column="productOrderItem_user_id"/>
+            <id property="user_id" column="productorderitem_user_id"/>
         </association>
     </resultMap>
 
     <insert id="insertOne" parameterType="com.xq.tmall.entity.ProductOrderItem">
-        INSERT productOrderItem
-        (productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage)
+        INSERT productorderitem
+        (productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage)
         VALUES (
         null,
         #{productOrderItem.productOrderItem_number},
@@ -32,29 +32,29 @@
         #{productOrderItem.productOrderItem_userMessage})
     </insert>
     <update id="updateOne" parameterType="com.xq.tmall.entity.ProductOrderItem">
-        UPDATE productOrderItem
+        UPDATE productorderitem
         <set>
             <if test="productOrderItem.productOrderItem_order != null">
-                productOrderItem_order_id = #{productOrderItem.productOrderItem_order.productOrder_id},
+                productorderitem_order_id = #{productOrderItem.productOrderItem_order.productOrder_id},
             </if>
             <if test="productOrderItem.productOrderItem_number != null">
-                productOrderItem_number = #{productOrderItem.productOrderItem_number},
+                productorderitem_number = #{productOrderItem.productOrderItem_number},
             </if>
             <if test="productOrderItem.productOrderItem_price != null">
-                productOrderItem_price = #{productOrderItem.productOrderItem_price},
+                productorderitem_price = #{productOrderItem.productOrderItem_price},
             </if>
             <if test="productOrderItem.productOrderItem_userMessage != null">
-                productOrderItem_userMessage = #{productOrderItem.productOrderItem_userMessage}
+                productorderitem_usermessage = #{productOrderItem.productOrderItem_userMessage}
             </if>
         </set>
         <where>
-            productOrderItem_id = #{productOrderItem.productOrderItem_id}
+            productorderitem_id = #{productOrderItem.productOrderItem_id}
         </where>
     </update>
     <delete id="deleteList" parameterType="java.util.ArrayList">
-        DELETE FROM productOrderItem
+        DELETE FROM productorderitem
         <where>
-            productOrderItem_id IN
+            productorderitem_id IN
             <foreach collection="productOrderItem_id_list" index="index" item="item" open="(" close=")" separator=",">
                 #{item}
             </foreach>
@@ -62,18 +62,18 @@
     </delete>
     <select id="select" parameterType="com.xq.tmall.util.PageUtil" resultMap="productOrderItemMap">
         SELECT
-        productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage
-        FROM productOrderItem
+        productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage
+        FROM productorderitem
         <if test="pageUtil != null">
             LIMIT #{pageUtil.index},#{pageUtil.count}
         </if>
     </select>
     <select id="selectByOrderId" resultMap="productOrderItemMap">
         SELECT
-        productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage
-        FROM productOrderItem
+        productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage
+        FROM productorderitem
         <where>
-            productOrderItem_order_id = #{order_id}
+            productorderitem_order_id = #{order_id}
         </where>
         <if test="pageUtil != null">
             LIMIT #{pageUtil.index},#{pageUtil.count}
@@ -81,21 +81,21 @@
     </select>
     <select id="selectByUserId" resultMap="productOrderItemMap">
         SELECT
-        productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage
-        FROM productOrderItem
+        productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage
+        FROM productorderitem
         <where>
-            productOrderItem_user_id = #{user_id} and productOrderItem_order_id is null
+            productorderitem_user_id = #{user_id} and productorderitem_order_id is null
         </where>
         <if test="pageUtil != null">
-            LIMIT #{pageUtil.index},#{pageUtil.count} AND productOrderItem_order_id is null
+            LIMIT #{pageUtil.index},#{pageUtil.count} AND productorderitem_order_id is null
         </if>
     </select>
     <select id="selectByProductId" resultMap="productOrderItemMap">
         SELECT
-        productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage
-        FROM productOrderItem
+        productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage
+        FROM productorderitem
         <where>
-            productOrderItem_product_id = #{product_id}
+            productorderitem_product_id = #{product_id}
         </where>
         <if test="pageUtil != null">
             LIMIT #{pageUtil.index},#{pageUtil.count}
@@ -103,46 +103,34 @@
     </select>
     <select id="selectOne" resultMap="productOrderItemMap" parameterType="int">
         SELECT
-        productOrderItem_id,productOrderItem_number,productOrderItem_price,productOrderItem_product_id,productOrderItem_order_id,productOrderItem_user_id,productOrderItem_userMessage
-        FROM productOrderItem
+        productorderitem_id,productorderitem_number,productorderitem_price,productorderitem_product_id,productorderitem_order_id,productorderitem_user_id,productorderitem_usermessage
+        FROM productorderitem
         <where>
-            productOrderItem_id = #{productOrderItem_id}
+            productorderitem_id = #{productOrderItem_id}
         </where>
     </select>
     <select id="selectTotal" resultType="int">
-        SELECT COUNT(productOrderItem_id) FROM productOrderItem
+        SELECT COUNT(productorderitem_id) FROM productorderitem
     </select>
-    <select id="selectTotalByOrderId" resultType="int" parameterType="int">
-        SELECT COUNT(productOrderItem_id) FROM productOrderItem
+    <select id="selectTotalByOrderId" resultType="int">
+        SELECT COUNT(productorderitem_id) FROM productorderitem
         <where>
-            productOrderItem_order_id = #{order_id}
+            productorderitem_order_id = #{order_id}
         </where>
     </select>
-    <select id="selectTotalByUserId" resultType="int" parameterType="int">
-        SELECT COUNT(productOrderItem_id) FROM productOrderItem
+    <select id="selectTotalByUserId" resultType="int">
+        SELECT COUNT(productorderitem_id) FROM productorderitem
         <where>
-            productOrderItem_user_id = #{user_id} AND productOrderItem_order_id is null
+            productorderitem_user_id = #{user_id} and productorderitem_order_id is null
         </where>
     </select>
-    <select id="selectTotalByProductId" resultType="int" parameterType="int">
-        SELECT COUNT(productOrderItem_id) FROM productOrderItem
+    <select id="selectTotalByProductId" resultType="int">
+        SELECT COUNT(productorderitem_id) FROM productorderitem
         <where>
-            productOrderItem_product_id = #{product_id}
+            productorderitem_product_id = #{product_id}
         </where>
     </select>
-    <select id="selectSaleCount" resultType="int" parameterType="int">
-        SELECT SUM(productOrderItem_number) FROM productOrderItem WHERE productOrderItem_product_id = #{product_id}
-    </select>
-
-    <select id="getTotalByProductId" resultType="com.xq.tmall.entity.OrderGroup">
-        SELECT
-        productOrder.productOrder_pay_date as productOrder_pay_date,count(productOrder.productOrder_id) as productOrder_count,productOrder.productOrder_status from productOrderItem,productOrder
-        <where>
-            productOrderItem.productOrder_pay_date BETWEEN #{beginDate} AND #{endDate}
-            <if test="product_id != null">
-                AND productOrder.productOrder_id = #{product_id}
-           </if>
-        </where>
-        GROUP BY productOrder.productOrder_pay_date,productOrder.productOrder_status
+    <select id="selectSaleCount" resultType="int">
+        SELECT SUM(productorderitem_number) FROM productorderitem WHERE productorderitem_product_id = #{product_id}
     </select>
 </mapper>

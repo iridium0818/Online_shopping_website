@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="include/header.jsp" %>
 <head>
-    <script src="${pageContext.request.contextPath}/res/js/fore/fore_login.js"></script>
+    <script src="${pageContext.request.contextPath}/res/js/fore/fore_login.js?v=<%=System.currentTimeMillis()%>"></script>
     <link href="${pageContext.request.contextPath}/res/css/fore/fore_login.css" rel="stylesheet">
     <style rel="stylesheet">
         #baseNavigator {

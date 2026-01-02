@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="include/header.jsp" %>
 <head>
-    <script src="${pageContext.request.contextPath}/res/js/admin/admin_login.js"></script>
+    <script src="${pageContext.request.contextPath}/res/js/admin/admin_login.js?v=<%=System.currentTimeMillis()%>"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/res/css/admin/admin_login.css"/>
     <title>Tmall 管理后台 - 登录</title>
 </head>
