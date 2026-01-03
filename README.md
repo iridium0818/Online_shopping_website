@@ -49,13 +49,5 @@
     *   修改 `base.js`，将 AJAX 请求的基础路径修正为绝对路径 `/admin/`，移除对 `contextPath` 的依赖。
     *   修改 `header.jsp`，在引入 JS 文件时添加时间戳参数（`?v=<%=System.currentTimeMillis()%>`），强制浏览器清除缓存，确保新逻辑生效。
 
-### 2.3 部署与版本控制
-*   **构建**：使用 Maven 跳过测试进行打包 (`mvn clean package -DskipTests`)，生成新的 WAR 包。
-*   **Git 同步**：
-    *   恢复 `.gitignore` 防止提交构建产物。
-    *   将所有代码修复和配置更改提交到本地 Git 仓库。
-    *   使用 `git pull --rebase` 同步远程仓库变更。
-    *   修改 Commit 信息为 "Fix the bug of product page redirection，fix admin dashboard 500 error, fix login paths" 并推送到 GitHub main 分支。
-
 ## 3. 结论
 经过修复，后台管理系统的首页统计图表可正常加载，所有子模块（分类、产品、用户、订单）的 AJAX 跳转均恢复正常。代码已同步至仓库，运行稳定。
